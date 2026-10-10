@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ellen Cristina · Nail Designer</title>
+<meta name="description" content="Ellen Cristina, Nail Designer. Experimente cores de esmalte na sua mão e agende seu horário pelo WhatsApp.">
+<meta name="theme-color" content="#F3E8DA">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='32' fill='%23F3E8DA'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' text-anchor='middle' fill='%23B08D63'%3EEC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nude:#F3E8DA; --nude-2:#EADBC8; --cream:#FBF7F0;
+  --gold:#B08D63; --gold-ink:#7E5E3B;
+  --green:#59664B; --green-deep:#445038; --sage:#7B8765;
+  --ink:#4A3226; --muted:#7A6657;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --script:"Pinyon Script","Snell Roundhand","Brush Script MT",cursive;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;background:#EADBC8;overflow-x:hidden}
+body{
+  margin:0; min-height:100vh; color:var(--ink);
+  font-family:var(--serif); font-weight:500; font-size:19px; line-height:1.5;
+  background:
+    radial-gradient(120% 60% at 50% 0%, #FBF4EA 0%, transparent 60%),
+    linear-gradient(180deg, var(--nude) 0%, var(--nude-2) 100%);
+  position:relative;
+  overflow-x:hidden;
+}
+button,input{font:inherit;color:inherit}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+
+/* ramos decorativos */
+.deco{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.sprig{position:absolute;width:min(30vw,150px);height:auto;pointer-events:none;opacity:.75;z-index:0}
+.sprig.tl{top:-78px;left:-26px;transform:rotate(-14deg)}
+.sprig.br{bottom:-8px;right:-22px;width:min(34vw,170px);transform:rotate(168deg)}
+@media (min-width:640px){.sprig{width:200px}.sprig.tl{left:calc(50% - 440px)}.sprig.br{right:calc(50% - 440px)}}
+
+.page{position:relative;z-index:1;max-width:560px;margin:0 auto;padding:0 20px calc(40px + env(safe-area-inset-bottom))}
+
+
+.twig,.fl,.lf{position:absolute;pointer-events:none;height:auto}
+.twig.tr{top:0;right:-10px;width:min(25vw,100px);opacity:.85;transform:scaleX(-1) rotate(-6deg)}
+.twig.bl{bottom:18px;left:-10px;width:min(30vw,120px);opacity:.8;transform:rotate(8deg)}
+.fl{opacity:.7}
+.fl.f1{top:30%;right:3%;width:34px;transform:rotate(14deg)}
+.fl.f2{top:56%;left:2%;width:30px;transform:rotate(-18deg);opacity:.6}
+.fl.f3{top:80%;right:5%;width:26px;transform:rotate(30deg);opacity:.55}
+.lf{opacity:.45;width:34px}
+.lf.l1{top:33.5%;right:9%;transform:rotate(40deg)}
+.lf.l2{top:58%;left:9%;transform:rotate(-150deg)}
+.apex{position:absolute;left:50%;top:calc(env(safe-area-inset-top) + 40px);width:96px;height:auto;transform:translateX(-50%);pointer-events:none}
+@media (min-width:640px){.twig.tr{right:calc(50% - 470px);width:150px}.twig.bl{left:calc(50% - 470px);width:140px}.fl.f1{right:calc(50% - 400px)}.fl.f2{left:calc(50% - 400px)}}
+
+/* identidade */
+.hero{position:relative;text-align:center;padding-top:calc(54px + env(safe-area-inset-top))}
+.dome{display:block;width:min(88%,360px);height:auto;margin:0 auto}
+.dome path{fill:none;stroke:var(--gold);stroke-width:1.1;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+h1{margin:0;font-weight:500}
+.name{display:block;font-family:var(--script);font-weight:400;font-size:clamp(58px,17.5vw,92px);line-height:1;margin-top:clamp(-72px,-14vw,-52px);color:var(--ink);white-space:nowrap}
+.role{display:block;margin-top:12px;font-size:clamp(17px,4.9vw,21px);letter-spacing:.4em;text-indent:.4em;text-transform:uppercase;color:var(--gold-ink);font-weight:600}
+.orn{display:flex;align-items:center;justify-content:center;gap:12px;margin:22px auto 0;width:min(78%,300px)}
+.orn i{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+.orn i:last-child{transform:scaleX(-1)}
+.orn svg{width:14px;height:22px;flex:none}
+
+@media (prefers-reduced-motion:no-preference){
+  .dome path{stroke-dasharray:1;animation:draw 1.8s .15s cubic-bezier(.3,.6,.2,1) both}
+  .name,.role,.orn{animation:rise 1.1s .5s ease-out both}
+  .role{animation-delay:.75s}.orn{animation-delay:.95s}
+}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* painel do simulador */
+.try{
+  position:relative;margin-top:38px;padding:30px 20px 26px;border-radius:30px;
+  background:rgba(251,247,240,.78);
+  border:1px solid rgba(176,141,99,.5);
+  box-shadow:0 0 0 6px rgba(251,247,240,.35), 0 18px 40px -26px rgba(74,50,38,.35);
+}
+.try h2{margin:0;text-align:center;font-weight:600;font-size:clamp(28px,8vw,36px);line-height:1.15}
+.lead{margin:12px auto 0;max-width:30ch;text-align:center;color:var(--muted);font-size:19px}
+
+.pick{margin-top:24px;padding:22px 16px;border:1.5px dashed rgba(176,141,99,.7);border-radius:22px;text-align:center;background:rgba(243,232,218,.45)}
+.pick svg{width:46px;height:46px;color:var(--gold)}
+.pick .tip{margin:6px 0 16px;font-size:16px;color:var(--muted)}
+.pick .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:50px;padding:12px 24px;border-radius:999px;border:1px solid transparent;
+  font-weight:600;font-size:18px;letter-spacing:.01em;cursor:pointer;text-decoration:none;
+  transition:transform .15s ease, box-shadow .2s ease, background-color .2s ease;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn:active{transform:scale(.98)}
+.btn-line{background:var(--cream);border-color:var(--gold);color:var(--gold-ink)}
+.btn-line:hover{background:#fff}
+.btn-gold{background:var(--gold-ink);color:var(--cream);width:100%;box-shadow:0 10px 22px -14px rgba(126,94,59,.9)}
+.btn-gold:hover:not(:disabled){background:#6f512f}
+.btn-gold:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.btn-green{background:var(--green);color:var(--cream);width:100%;min-height:60px;font-size:20px;border-color:rgba(176,141,99,.7);box-shadow:0 14px 28px -16px rgba(68,80,56,.9), inset 0 0 0 3px rgba(251,247,240,.12)}
+.btn-green:hover{background:var(--green-deep)}
+.btn svg{width:22px;height:22px;flex:none}
+.link{background:none;border:0;padding:8px 4px;color:var(--gold-ink);text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(176,141,99,.7);cursor:pointer;font-size:17px}
+
+/* prévia da foto */
+.preview{position:relative;margin:24px 0 0;border-radius:22px;overflow:hidden;background:var(--nude-2);line-height:0}
+.preview img{width:100%;max-height:min(62vh,460px);object-fit:cover;display:block}
+.loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;line-height:1.4;text-align:center;padding:20px;
+  background:linear-gradient(110deg,rgba(251,247,240,.72) 30%,rgba(251,247,240,.9) 50%,rgba(251,247,240,.72) 70%);background-size:220% 100%}
+@media (prefers-reduced-motion:no-preference){.loading{animation:shimmer 2.2s linear infinite}}
+@keyframes shimmer{from{background-position:120% 0}to{background-position:-120% 0}}
+.loading .spin{width:36px;height:36px;border-radius:50%;border:2.5px solid rgba(176,141,99,.35);border-top-color:var(--gold-ink)}
+@media (prefers-reduced-motion:no-preference){.loading .spin{animation:spin 1s linear infinite}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading b{font-weight:600;font-size:20px}
+.loading span{font-size:16px;color:var(--muted)}
+.center{text-align:center}
+
+/* cores */
+fieldset{border:0;margin:22px 0 0;padding:0;min-width:0}
+legend{padding:0;margin:0 auto 12px;font-weight:600;font-size:22px;text-align:center;width:100%}
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px}
+.sw{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;text-align:center;-webkit-tap-highlight-color:transparent}
+.sw input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.sw svg{width:46px;height:68px;transition:transform .2s ease, filter .2s ease;overflow:visible}
+.sw .ring{fill:none;stroke:var(--gold-ink);stroke-width:2.2;opacity:0;transition:opacity .2s ease}
+.sw span{font-size:14.5px;line-height:1.15;color:var(--muted);max-width:9ch}
+.sw input:checked ~ svg{transform:translateY(-4px) scale(1.06);filter:drop-shadow(0 8px 6px rgba(74,50,38,.22))}
+.sw input:checked ~ svg .ring{opacity:1}
+.sw input:checked ~ span{color:var(--ink);font-weight:600}
+.sw input:focus-visible ~ svg{outline:2px solid var(--green);outline-offset:4px;border-radius:24px}
+.chosen{margin:12px 0 0;text-align:center;color:var(--muted);font-size:17px;min-height:1.5em}
+
+.consent{display:flex;gap:12px;align-items:flex-start;margin:20px 0 0;font-size:16.5px;line-height:1.4;color:var(--muted);cursor:pointer}
+.consent input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:var(--green)}
+#go{margin-top:18px}
+.hint{margin:10px 0 0;text-align:center;font-size:16px;color:var(--muted);min-height:1.4em}
+.pick .error{text-align:left;margin-top:16px}
+.error{margin:14px 0 0;padding:14px 16px;border-radius:16px;background:#F7E4DF;border:1px solid #D9A79C;color:#6B2A1F;font-size:17px;line-height:1.4}
+
+/* resultado */
+.result{margin-top:30px;padding-top:26px;border-top:1px solid rgba(176,141,99,.4)}
+.result h3{margin:0 0 4px;text-align:center;font-weight:600;font-size:28px}
+.chip{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 16px;color:var(--muted);font-size:17px}
+.chip i{display:inline-block;width:14px;height:20px;border-radius:50% 50% 45% 45%/70% 70% 30% 30%;border:1px solid rgba(74,50,38,.25)}
+.compare{position:relative;border-radius:22px;overflow:hidden;touch-action:pan-y;background:var(--nude-2);--pos:50%;user-select:none;-webkit-user-select:none}
+.compare img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.compare .before{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.compare .line{position:absolute;top:0;bottom:0;left:var(--pos);width:2px;margin-left:-1px;background:var(--cream);box-shadow:0 0 0 1px rgba(74,50,38,.12);pointer-events:none}
+.compare .knob{position:absolute;top:50%;left:var(--pos);width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:var(--cream);border:1.5px solid var(--gold);display:grid;place-items:center;color:var(--gold-ink);box-shadow:0 6px 14px -6px rgba(74,50,38,.5);pointer-events:none}
+.compare .knob svg{width:20px;height:20px}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare:has(input:focus-visible){outline:2px solid var(--green);outline-offset:3px}
+.tag{position:absolute;top:12px;padding:3px 12px;border-radius:999px;background:rgba(251,247,240,.88);font-size:15px;font-weight:600;color:var(--ink);pointer-events:none}
+.tag.l{left:12px}.tag.r{right:12px}
+.note{margin:12px 0 0;text-align:center;font-size:15.5px;color:var(--muted)}
+.actions{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:16px}
+.actions .btn{width:100%}
+
+/* limite atingido */
+.limit{margin-top:26px;padding:24px 18px;border-radius:22px;text-align:center;background:rgba(243,232,218,.7);border:1px solid rgba(176,141,99,.45)}
+.limit .t{margin:0;color:var(--ink);font-weight:600;font-size:clamp(23px,6.6vw,28px);line-height:1.2}
+.limit p{margin:10px 0 0;color:var(--muted)}
+.limit .btn{margin-top:18px}
+.remaining{margin:10px 0 0;text-align:center;font-size:16.5px;color:var(--gold-ink);font-weight:600}
+
+/* agendamento */
+.book{margin-top:30px}
+.book .btn-green{padding-inline:14px;font-size:clamp(16px,4.6vw,20px);text-align:center;line-height:1.2;white-space:nowrap}
+
+footer{margin-top:44px;text-align:center;font-size:16px;letter-spacing:.06em;color:var(--gold-ink)}
+
+@media (min-width:640px){body{font-size:20px}.page{padding-top:10px}.swatches{gap:18px 10px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="leaf" d="M0 0 C10 -16 34 -20 46 -6 C34 12 10 14 0 0Z"/>
+    <symbol id="bloom" viewBox="-30 -30 60 60">
+      <g fill="#F2DDD0" stroke="#C4A27A" stroke-width=".9">
+        <ellipse cx="0" cy="-13" rx="7.5" ry="12.5"/>
+        <ellipse cx="0" cy="-13" rx="7.5" ry="12.5" transform="rotate(72)"/>
+        <ellipse cx="0" cy="-13" rx="7.5" ry="12.5" transform="rotate(144)"/>
+        <ellipse cx="0" cy="-13" rx="7.5" ry="12.5" transform="rotate(216)"/>
+        <ellipse cx="0" cy="-13" rx="7.5" ry="12.5" transform="rotate(288)"/>
+      </g>
+      <circle r="3.4" fill="#C4A27A"/>
+      <g fill="#8F6B43" opacity=".7"><circle cx="0" cy="-7" r=".9"/><circle cx="6.6" cy="-2.2" r=".9"/><circle cx="4" cy="5.7" r=".9"/><circle cx="-4" cy="5.7" r=".9"/><circle cx="-6.6" cy="-2.2" r=".9"/></g>
+    </symbol>
+    <symbol id="bud" viewBox="-10 -16 20 32">
+      <path d="M0 -14 C7 -8 8 4 0 13 C-8 4 -7 -8 0 -14Z" fill="#F2DDD0" stroke="#C4A27A" stroke-width=".9"/>
+      <path d="M0 13 C-5 8 -6 4 -5 0 M0 13 C5 8 6 4 5 0" fill="none" stroke="#7B8765" stroke-width="1" opacity=".8"/>
+    </symbol>
+    <symbol id="twig" viewBox="0 0 160 200">
+      <path d="M14 196 C34 142 66 92 138 24" fill="none" stroke="#B08D63" stroke-width="1.1" stroke-linecap="round"/>
+      <path d="M62 120 C70 112 84 108 96 110" fill="none" stroke="#B08D63" stroke-width=".9" stroke-linecap="round"/>
+      <g fill="#7B8765">
+        <use href="#leaf" transform="translate(30 168) rotate(-60) scale(.8)" opacity=".6"/>
+        <use href="#leaf" transform="translate(40 150) rotate(150) scale(.75)" opacity=".7" fill="#5E6B4B"/>
+        <use href="#leaf" transform="translate(54 128) rotate(-52) scale(.75)" opacity=".55"/>
+        <use href="#leaf" transform="translate(70 108) rotate(158) scale(.7)" opacity=".7" fill="#5E6B4B"/>
+        <use href="#leaf" transform="translate(88 86) rotate(-44) scale(.7)" opacity=".55"/>
+        <use href="#leaf" transform="translate(104 66) rotate(166) scale(.62)" opacity=".6" fill="#5E6B4B"/>
+      </g>
+      <use href="#bloom" x="132" y="26" width="38" height="38" transform="translate(-19 -19)"/>
+      <use href="#bloom" x="92" y="112" width="24" height="24" transform="translate(-12 -12)" opacity=".95"/>
+      <use href="#bud" x="112" y="52" width="14" height="22" transform="translate(-7 -11) rotate(30 119 63)" opacity=".95"/>
+      <use href="#bud" x="50" y="146" width="12" height="19" transform="translate(-6 -9) rotate(-20 56 155)" opacity=".9"/>
+    </symbol>
+    <symbol id="sprig" viewBox="0 0 200 320">
+      <path d="M150 318 C142 222 122 138 62 8" fill="none" stroke="#B08D63" stroke-width="1.3" stroke-linecap="round"/>
+      <g fill="#7B8765">
+        <use href="#leaf" transform="translate(148 292) rotate(-28) scale(1.15)" opacity=".55"/>
+        <use href="#leaf" transform="translate(146 270) rotate(196) scale(1.2)" opacity=".7" fill="#5E6B4B"/>
+        <use href="#leaf" transform="translate(141 236) rotate(-32) scale(1.1)" opacity=".7" fill="#5E6B4B"/>
+        <use href="#leaf" transform="translate(137 208) rotate(200) scale(1.1)" opacity=".5"/>
+        <use href="#leaf" transform="translate(129 178) rotate(-36) scale(1)" opacity=".55"/>
+        <use href="#leaf" transform="translate(124 150) rotate(204) scale(1)" opacity=".7" fill="#5E6B4B"/>
+        <use href="#leaf" transform="translate(110 112) rotate(-40) scale(.9)" opacity=".7" fill="#5E6B4B"/>
+        <use href="#leaf" transform="translate(100 88) rotate(208) scale(.9)" opacity=".5"/>
+        <use href="#leaf" transform="translate(82 56) rotate(-48) scale(.8)" opacity=".55"/>
+        <use href="#leaf" transform="translate(72 34) rotate(214) scale(.75)" opacity=".7" fill="#5E6B4B"/>
+        <use href="#leaf" transform="translate(62 8) rotate(-100) scale(.8)" opacity=".6"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="deco" aria-hidden="true">
+<svg class="sprig tl" viewBox="0 0 200 320" aria-hidden="true"><use href="#sprig"/></svg>
+<svg class="sprig br" viewBox="0 0 200 320" aria-hidden="true"><use href="#sprig"/></svg>
+<svg class="twig tr" viewBox="0 0 160 200"><use href="#twig"/></svg>
+<svg class="twig bl" viewBox="0 0 160 200"><use href="#twig"/></svg>
+<svg class="fl f1" viewBox="-30 -30 60 60"><use href="#bloom" x="-30" y="-30" width="60" height="60"/></svg>
+<svg class="fl f2" viewBox="-30 -30 60 60"><use href="#bloom" x="-30" y="-30" width="60" height="60"/></svg>
+<svg class="fl f3" viewBox="-30 -30 60 60"><use href="#bloom" x="-30" y="-30" width="60" height="60"/></svg>
+<svg class="lf l1" viewBox="-6 -22 58 44"><use href="#leaf" fill="#7B8765" transform="rotate(-20)"/></svg>
+<svg class="lf l2" viewBox="-6 -22 58 44"><use href="#leaf" fill="#5E6B4B" transform="rotate(20)"/></svg>
+</div>
+
+<main class="page">
+
+  <header class="hero">
+    <svg class="apex" viewBox="-60 -18 120 36" aria-hidden="true">
+      <use href="#leaf" transform="translate(-10 3) rotate(185) scale(.9)" fill="#7B8765" opacity=".65"/>
+      <use href="#leaf" transform="translate(10 3) rotate(-5) scale(.9)" fill="#5E6B4B" opacity=".6"/>
+      <use href="#leaf" transform="translate(-28 8) rotate(170) scale(.6)" fill="#7B8765" opacity=".5"/>
+      <use href="#leaf" transform="translate(28 8) rotate(10) scale(.6)" fill="#7B8765" opacity=".5"/>
+      <use href="#bloom" x="-11" y="-14" width="22" height="22"/>
+    </svg>
+    <svg class="dome" viewBox="0 0 320 124" aria-hidden="true">
+      <path pathLength="1" d="M8 122 C8 42 80 6 160 6 C240 6 312 42 312 122"/>
+    </svg>
+    <h1>
+      <span class="name">Ellen Cristina</span>
+      <span class="role">Nail Designer</span>
+    </h1>
+    <div class="orn" aria-hidden="true">
+      <i></i>
+      <svg viewBox="0 0 14 22" fill="none" stroke="#B08D63" stroke-width="1.1"><path d="M7 1.2C10 1.2 12.4 7 13 14.5 13.3 19 10.6 21 7 21S.7 19 1 14.5C1.6 7 4 1.2 7 1.2Z"/><path d="M4.6 6.5C4 9.5 3.8 12.5 4 15" stroke-linecap="round" opacity=".7"/></svg>
+      <i></i>
+    </div>
+  </header>
+
+  <section class="try" aria-labelledby="try-title">
+    <h2 id="try-title">Experimente esse esmalte 💅</h2>
+    <p class="lead" id="lead">Envie uma foto da sua mão e descubra como suas unhas ficam com a cor escolhida.</p>
+
+    <!-- Escolher a foto -->
+    <div id="pick" class="pick">
+      <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M17 41c-4-3-7-8-9-13-1-3 2-4 4-2l3 4V11c0-3 4-3 4 0v10-13c0-3 4-3 4 0v13-10c0-3 4-3 4 0v11-6c0-3 4-3 4 0v14c0 6-3 10-7 13"/>
+        <path d="M24 3.5v0" />
+      </svg>
+      <p class="tip">Use uma foto com boa luz, mostrando as unhas.</p>
+      <div class="row">
+        <button type="button" class="btn btn-line" id="btnCam">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z"/><circle cx="12" cy="13" r="3.6"/></svg>
+          Tirar foto
+        </button>
+        <button type="button" class="btn btn-line" id="btnGal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m21 16-5-5-8 9"/></svg>
+          Escolher da galeria
+        </button>
+      </div>
+      <input type="file" id="inCam" accept="image/*" capture="environment" hidden>
+      <input type="file" id="inGal" accept="image/*" hidden>
+      <div class="error" id="pickError" role="alert" hidden></div>
+    </div>
+
+    <!-- Foto + cores + botão -->
+    <div id="stage" hidden>
+      <figure class="preview" id="previewWrap">
+        <img id="preview" alt="Foto da sua mão">
+        <div class="loading" id="loading" hidden role="status">
+          <div class="spin" aria-hidden="true"></div>
+          <b>Pintando suas unhas…</b>
+          <span>Isso pode levar até 1 minuto. Não feche a página.</span>
+        </div>
+      </figure>
+      <div class="center" id="changeWrap"><button type="button" class="link" id="btnChange">Trocar foto</button></div>
+
+      <fieldset>
+        <legend>Escolha a cor</legend>
+        <div class="swatches" id="swatches"></div>
+        <p class="chosen" id="chosen" aria-live="polite"></p>
+      </fieldset>
+
+      <label class="consent">
+        <input type="checkbox" id="consent">
+        <span>Autorizo enviar minha foto a um serviço de inteligência artificial apenas para gerar esta imagem. A foto não é publicada nem guardada neste site.</span>
+      </label>
+
+      <button type="button" class="btn btn-gold" id="go" disabled>Experimentar na minha mão</button>
+      <p class="hint" id="hint" aria-live="polite"></p>
+      <div class="error" id="error" role="alert" hidden></div>
+    </div>
+
+    <!-- Resultado -->
+    <div class="result" id="result" hidden>
+      <h3>Seu resultado</h3>
+      <p class="chip" id="resultChip"></p>
+      <div class="compare" id="compare">
+        <img class="after" id="imgAfter" alt="Sua mão com as unhas pintadas na cor escolhida">
+        <img class="before" id="imgBefore" alt="Sua foto original">
+        <span class="tag l">Antes</span><span class="tag r">Depois</span>
+        <div class="line"></div>
+        <div class="knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m9 7-5 5 5 5M15 7l5 5-5 5"/></svg></div>
+        <input type="range" id="slider" min="0" max="100" value="50" aria-label="Arraste para comparar antes e depois">
+      </div>
+      <p class="note">Imagem criada por IA. O tom real pode variar um pouco.</p>
+      <p class="remaining" id="remaining" hidden></p>
+      <div class="actions" id="actions">
+        <button type="button" class="btn btn-line" id="btnOther">Experimentar outra cor</button>
+        <button type="button" class="link" id="btnNewPhoto">Usar outra foto</button>
+      </div>
+    </div>
+    <!-- Limite de provas atingido -->
+    <div class="limit" id="limit" hidden>
+      <p class="t">Você já experimentou suas duas cores! 💅</p>
+      <p>Que tal agendar seu horário com a Ellen?</p>
+      <p>E aí, vamos experimentar na prática? Temos muitos modelos disponíveis só para você!</p>
+      <a class="btn btn-gold" id="waLimit" target="_blank" rel="noopener" href="https://wa.me/5542984043658?text=Oi%2C%20eu%20vim%20do%20site%2C%20voc%C3%AA%20tem%20hor%C3%A1rio%20dispon%C3%ADvel%3F">Agende seu horário aqui</a>
+    </div>
+  </section>
+
+  <section class="book">
+    <a class="btn btn-green" id="wa" target="_blank" rel="noopener"
+       href="https://wa.me/5542984043658?text=Oi%2C%20eu%20vim%20do%20site%2C%20voc%C3%AA%20tem%20hor%C3%A1rio%20dispon%C3%ADvel%3F">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12.04 2a9.93 9.93 0 0 0-8.5 15.05L2 22l5.1-1.5A9.93 9.93 0 1 0 12.04 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.03.9.9-2.95-.2-.3a8.2 8.2 0 1 1 6.83 3.68Z"/><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.14-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35Z"/></svg>
+      Agende seu horário pelo WhatsApp
+    </a>
+  </section>
+
+  <footer>Ellen Cristina · Nail Designer</footer>
+</main>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const el = {
+    pick: $('#pick'), pickError: $('#pickError'), stage: $('#stage'), preview: $('#preview'), previewWrap: $('#previewWrap'), changeWrap: $('#changeWrap'),
+    loading: $('#loading'), swatches: $('#swatches'), chosen: $('#chosen'), consent: $('#consent'), go: $('#go'),
+    hint: $('#hint'), error: $('#error'), result: $('#result'), resultChip: $('#resultChip'), compare: $('#compare'),
+    imgAfter: $('#imgAfter'), imgBefore: $('#imgBefore'), slider: $('#slider'),
+    inCam: $('#inCam'), inGal: $('#inGal'), lead: $('#lead'), limit: $('#limit'), actions: $('#actions'), remaining: $('#remaining'),
+  };
+  const state = { photo: null, w: 0, h: 0, colors: [], colorId: null, busy: false };
+  const MAX_SIDE = 1280;
+  const LIMIT = 2;
+  const KEY = 'ec_provas_geradas';
+  let memCount = 0; // reserva caso o navegador bloqueie o armazenamento
+  const getCount = () => {
+    try { return Math.max(memCount, parseInt(localStorage.getItem(KEY) || '0', 10) || 0); } catch (_) { return memCount; }
+  };
+  const addCount = () => {
+    memCount = getCount() + 1;
+    try { localStorage.setItem(KEY, String(memCount)); } catch (_) {}
+  };
+  const limitReached = () => getCount() >= LIMIT;
+  function showLimit() {
+    el.pick.hidden = true;
+    el.stage.hidden = true;
+    el.actions.hidden = true;
+    el.remaining.hidden = true;
+    el.limit.hidden = false;
+    if (el.result.hidden) el.lead.hidden = true;
+  }
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const scrollTo = (node) => node.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+
+  /* ---------- mensagens ---------- */
+  const showError = (msg) => { el.error.textContent = msg; el.error.hidden = false; };
+  const clearError = () => { el.error.hidden = true; el.error.textContent = ''; el.pickError.hidden = true; el.pickError.textContent = ''; };
+
+  /* ---------- cores ---------- */
+  const NAIL_PATH = 'M22 2C30 2 36 18 40 40c2 12-4 24-18 24S2 52 4 40C8 18 14 2 22 2Z';
+  function renderSwatches() {
+    el.swatches.innerHTML = '';
+    state.colors.forEach((c) => {
+      const label = document.createElement('label');
+      label.className = 'sw';
+      label.innerHTML =
+        `<input type="radio" name="cor" value="${c.id}">` +
+        `<svg viewBox="0 0 44 66" aria-hidden="true">` +
+          `<path d="${NAIL_PATH}" fill="${c.hex}" stroke="rgba(74,50,38,.22)" stroke-width="1"/>` +
+          `<path d="M15 14C13 24 11.5 34 12 45" fill="none" stroke="#fff" stroke-opacity=".55" stroke-width="3" stroke-linecap="round"/>` +
+          `<path class="ring" d="${NAIL_PATH}" transform="translate(22 33) scale(1.14) translate(-22 -33)"/>` +
+        `</svg><span></span>`;
+      label.querySelector('span').textContent = c.name;
+      label.querySelector('input').addEventListener('change', () => {
+        state.colorId = c.id;
+        el.chosen.textContent = c.name;
+        clearError();
+        update();
+      });
+      el.swatches.appendChild(label);
+    });
+  }
+  fetch('/colors.json').then((r) => r.json()).then((list) => { state.colors = list; renderSwatches(); })
+    .catch(() => showError('Não foi possível carregar as cores. Atualize a página.'));
+
+  /* ---------- foto ---------- */
+  async function toBitmap(file) {
+    if ('createImageBitmap' in window) {
+      try { return await createImageBitmap(file, { imageOrientation: 'from-image' }); } catch (_) { /* tenta o método clássico */ }
+    }
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => { URL.revokeObjectURL(url); resolve(img); };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode')); };
+      img.src = url;
+    });
+  }
+
+  async function handleFile(file) {
+    if (!file) return;
+    clearError();
+    try {
+      const bmp = await toBitmap(file);
+      const sw = bmp.width || bmp.naturalWidth, sh = bmp.height || bmp.naturalHeight;
+      const k = Math.min(1, MAX_SIDE / Math.max(sw, sh));
+      const w = Math.round(sw * k), h = Math.round(sh * k);
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(bmp, 0, 0, w, h);
+      if (bmp.close) bmp.close();
+      state.photo = canvas.toDataURL('image/jpeg', 0.88);
+      state.w = w; state.h = h;
+      el.preview.src = state.photo;
+      resetResult();
+      el.pick.hidden = true;
+      el.stage.hidden = false;
+      el.previewWrap.hidden = false;
+      el.changeWrap.hidden = false;
+      update();
+      scrollTo(el.stage);
+    } catch (_) {
+      el.pickError.textContent = 'Não conseguimos abrir essa foto. Use uma imagem JPG ou PNG (ou tire uma foto pela câmera).';
+      el.pickError.hidden = false;
+    }
+  }
+  function resetPhoto() {
+    state.photo = null;
+    el.preview.removeAttribute('src');
+    el.inCam.value = ''; el.inGal.value = '';
+    resetResult();
+    clearError();
+    el.stage.hidden = true;
+    el.pick.hidden = false;
+    update();
+    scrollTo(document.querySelector('.try'));
+  }
+  function resetResult() {
+    el.result.hidden = true;
+    el.imgAfter.removeAttribute('src');
+    el.imgBefore.removeAttribute('src');
+    el.previewWrap.hidden = false;
+    el.changeWrap.hidden = false;
+  }
+
+  $('#btnCam').onclick = () => el.inCam.click();
+  $('#btnGal').onclick = () => el.inGal.click();
+  el.inCam.onchange = () => handleFile(el.inCam.files[0]);
+  el.inGal.onchange = () => handleFile(el.inGal.files[0]);
+  $('#btnChange').onclick = resetPhoto;
+  $('#btnNewPhoto').onclick = resetPhoto;
+  $('#btnOther').onclick = () => scrollTo($('#stage fieldset'));
+
+  /* ---------- estado do botão ---------- */
+  function update() {
+    const ready = Boolean(state.photo && state.colorId && el.consent.checked && !state.busy);
+    el.go.disabled = !ready;
+    el.go.textContent = state.busy ? 'Gerando…' : 'Experimentar na minha mão';
+    let hint = '';
+    if (!state.busy && state.photo) {
+      if (!state.colorId) hint = 'Escolha uma cor para continuar.';
+      else if (!el.consent.checked) hint = 'Marque a autorização para continuar.';
+    }
+    el.hint.textContent = hint;
+    el.swatches.querySelectorAll('input').forEach((i) => (i.disabled = state.busy));
+    el.consent.disabled = state.busy;
+  }
+  el.consent.addEventListener('change', () => { clearError(); update(); });
+
+  /* ---------- gerar imagem ---------- */
+  el.go.onclick = async () => {
+    if (el.go.disabled) return;
+    if (limitReached()) { showLimit(); return; }
+    clearError();
+    state.busy = true;
+    el.loading.hidden = false;
+    el.previewWrap.hidden = false;
+    update();
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 160000);
+    try {
+      const resp = await fetch('/api/try-on', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: state.photo, colorId: state.colorId, consent: true }),
+        signal: ctrl.signal,
+      });
+      let data = null;
+      try { data = await resp.json(); } catch (_) {}
+      if (!resp.ok || !data || !data.image) {
+        throw new Error((data && data.error) || 'Não foi possível gerar a imagem agora. Tente novamente em instantes.');
+      }
+      showResult(data.image, (state.colors.find((c) => c.id === state.colorId) || {}));
+      addCount(); // só conta quando a imagem foi realmente gerada
+      afterCount();
+    } catch (err) {
+      if (err.name === 'AbortError') showError('A geração demorou mais que o esperado. Tente novamente.');
+      else if (err instanceof TypeError) showError('Sem conexão com o site. Verifique sua internet e tente de novo.');
+      else showError(err.message);
+    } finally {
+      clearTimeout(timer);
+      state.busy = false;
+      el.loading.hidden = true;
+      update();
+    }
+  };
+
+  function showResult(afterUrl, color) {
+    el.compare.style.aspectRatio = `${state.w} / ${state.h}`;
+    el.imgBefore.src = state.photo;
+    el.imgAfter.src = afterUrl;
+    el.slider.value = 50;
+    el.compare.style.setProperty('--pos', '50%');
+    el.resultChip.innerHTML = '<i></i><span></span>';
+    el.resultChip.querySelector('i').style.background = color.hex || 'transparent';
+    el.resultChip.querySelector('span').textContent = color.name || '';
+    // a foto original passa a aparecer na comparação
+    el.previewWrap.hidden = true;
+    el.changeWrap.hidden = true;
+    el.result.hidden = false;
+    scrollTo(el.result);
+  }
+
+  function afterCount() {
+    if (limitReached()) { showLimit(); return; }
+    const left = LIMIT - getCount();
+    el.remaining.textContent = left === 1 ? 'Você ainda pode experimentar mais 1 cor.' : `Você ainda pode experimentar mais ${left} cores.`;
+    el.remaining.hidden = false;
+  }
+
+  el.slider.addEventListener('input', () => el.compare.style.setProperty('--pos', el.slider.value + '%'));
+
+  /* garante que o nome nunca estoure a largura da tela, seja qual for a fonte carregada */
+  const nameEl = document.querySelector('.name');
+  function fitName() {
+    nameEl.style.fontSize = '';
+    let size = parseFloat(getComputedStyle(nameEl).fontSize);
+    while (nameEl.scrollWidth > nameEl.clientWidth && size > 40) { size -= 2; nameEl.style.fontSize = size + 'px'; }
+  }
+  fitName();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitName);
+  addEventListener('resize', fitName);
+
+  update();
+  if (limitReached()) showLimit();
+})();
+</script>
+</body>
+</html>

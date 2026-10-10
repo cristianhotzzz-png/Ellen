@@ -1,0 +1,9 @@
+{
+  "name": "site-ellen-cristina",
+  "version": "1.0.0",
+  "description": "Site de página única da Ellen Cristina · Nail Designer, com prova de esmalte por IA",
+  "private": true,
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
