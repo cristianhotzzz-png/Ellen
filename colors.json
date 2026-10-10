@@ -1,0 +1,14 @@
+[
+  { "id": "nude-rosado", "name": "Nude Rosado", "hex": "#E2B9A8" },
+  { "id": "cappuccino", "name": "Cappuccino", "hex": "#B98B73" },
+  { "id": "rosa-antigo", "name": "Rosa Antigo", "hex": "#C98B94" },
+  { "id": "rose", "name": "Rosé", "hex": "#E7A6B0" },
+  { "id": "coral", "name": "Coral", "hex": "#E8806F" },
+  { "id": "vermelho-classico", "name": "Vermelho Clássico", "hex": "#B3262E" },
+  { "id": "vinho", "name": "Vinho", "hex": "#6E1F2F" },
+  { "id": "verde-oliva", "name": "Verde Oliva", "hex": "#6F7A5C" },
+  { "id": "branco-leite", "name": "Branco Leite", "hex": "#F6F1EA" },
+  { "id": "lilas", "name": "Lilás", "hex": "#BFA7D1" },
+  { "id": "azul-bebe", "name": "Azul Bebê", "hex": "#A9C7E3" },
+  { "id": "preto", "name": "Preto", "hex": "#1C1A1B" }
+]
