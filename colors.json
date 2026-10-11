@@ -1,0 +1,222 @@
+{
+ "simples": [
+  {
+   "id": "nude-rosado",
+   "name": "Nude Rosado",
+   "hex": "#E2B9A8"
+  },
+  {
+   "id": "cappuccino",
+   "name": "Cappuccino",
+   "hex": "#B98B73"
+  },
+  {
+   "id": "rosa-antigo",
+   "name": "Rosa Antigo",
+   "hex": "#C98B94"
+  },
+  {
+   "id": "rose",
+   "name": "Rosé",
+   "hex": "#E7A6B0"
+  },
+  {
+   "id": "coral",
+   "name": "Coral",
+   "hex": "#E8806F"
+  },
+  {
+   "id": "vermelho-classico",
+   "name": "Vermelho Clássico",
+   "hex": "#B3262E"
+  },
+  {
+   "id": "vinho",
+   "name": "Vinho",
+   "hex": "#6E1F2F"
+  },
+  {
+   "id": "verde-oliva",
+   "name": "Verde Oliva",
+   "hex": "#6F7A5C"
+  },
+  {
+   "id": "branco-leite",
+   "name": "Branco Leite",
+   "hex": "#F6F1EA"
+  },
+  {
+   "id": "lilas",
+   "name": "Lilás",
+   "hex": "#BFA7D1"
+  },
+  {
+   "id": "azul-bebe",
+   "name": "Azul Bebê",
+   "hex": "#A9C7E3"
+  },
+  {
+   "id": "preto",
+   "name": "Preto",
+   "hex": "#1C1A1B"
+  }
+ ],
+ "marcas": [
+  {
+   "id": "dafu-rosa-nude",
+   "name": "Rosa Nude",
+   "hex": "#E6BFB0",
+   "brand": "DAFU"
+  },
+  {
+   "id": "dafu-rosa-bebe",
+   "name": "Rosa Bebê",
+   "hex": "#F4C6D0",
+   "brand": "DAFU"
+  },
+  {
+   "id": "dafu-coral-vivo",
+   "name": "Coral Vivo",
+   "hex": "#EE6F5B",
+   "brand": "DAFU"
+  },
+  {
+   "id": "dafu-vermelho-cereja",
+   "name": "Vermelho Cereja",
+   "hex": "#A81C2B",
+   "brand": "DAFU"
+  },
+  {
+   "id": "dafu-marsala",
+   "name": "Marsala",
+   "hex": "#8E3B46",
+   "brand": "DAFU"
+  },
+  {
+   "id": "dafu-bordo",
+   "name": "Bordô",
+   "hex": "#6A1B2A",
+   "brand": "DAFU"
+  },
+  {
+   "id": "dyz-bege-areia",
+   "name": "Bege Areia",
+   "hex": "#D9BFA3",
+   "brand": "DYZ"
+  },
+  {
+   "id": "dyz-malva",
+   "name": "Malva",
+   "hex": "#A8828F",
+   "brand": "DYZ"
+  },
+  {
+   "id": "dyz-caramelo",
+   "name": "Caramelo",
+   "hex": "#B5764A",
+   "brand": "DYZ"
+  },
+  {
+   "id": "dyz-terracota",
+   "name": "Terracota",
+   "hex": "#B9604A",
+   "brand": "DYZ"
+  },
+  {
+   "id": "dyz-mocha",
+   "name": "Mocha",
+   "hex": "#8A6552",
+   "brand": "DYZ"
+  },
+  {
+   "id": "dyz-chocolate",
+   "name": "Chocolate",
+   "hex": "#4B2E24",
+   "brand": "DYZ"
+  },
+  {
+   "id": "met-champanhe",
+   "name": "Champanhe",
+   "hex": "#E3CBA0",
+   "brand": "Metalizado",
+   "finish": "metalizado"
+  },
+  {
+   "id": "met-dourado",
+   "name": "Dourado",
+   "hex": "#D8B45E",
+   "brand": "Metalizado",
+   "finish": "metalizado"
+  },
+  {
+   "id": "met-rose-gold",
+   "name": "Rosé Gold",
+   "hex": "#D9A58F",
+   "brand": "Metalizado",
+   "finish": "metalizado"
+  },
+  {
+   "id": "met-cobre",
+   "name": "Cobre",
+   "hex": "#B87333",
+   "brand": "Metalizado",
+   "finish": "metalizado"
+  },
+  {
+   "id": "met-prata",
+   "name": "Prata",
+   "hex": "#C7CACD",
+   "brand": "Metalizado",
+   "finish": "metalizado"
+  },
+  {
+   "id": "met-grafite",
+   "name": "Grafite",
+   "hex": "#5A5F66",
+   "brand": "Metalizado",
+   "finish": "metalizado"
+  },
+  {
+   "id": "gel-branco-neve",
+   "name": "Branco Neve",
+   "hex": "#FAFAF7",
+   "brand": "Gel"
+  },
+  {
+   "id": "gel-pessego",
+   "name": "Pêssego",
+   "hex": "#F2B49A",
+   "brand": "Gel"
+  },
+  {
+   "id": "gel-amarelo-manteiga",
+   "name": "Amarelo Manteiga",
+   "hex": "#F2DE9A",
+   "brand": "Gel"
+  },
+  {
+   "id": "gel-verde-menta",
+   "name": "Verde Menta",
+   "hex": "#A8D5BA",
+   "brand": "Gel"
+  },
+  {
+   "id": "gel-verde-esmeralda",
+   "name": "Verde Esmeralda",
+   "hex": "#1F5B4A",
+   "brand": "Gel"
+  },
+  {
+   "id": "gel-violeta",
+   "name": "Violeta",
+   "hex": "#7E5BA8",
+   "brand": "Gel"
+  },
+  {
+   "id": "gel-azul-marinho",
+   "name": "Azul Marinho",
+   "hex": "#1E2F5A",
+   "brand": "Gel"
+  }
+ ]
+}
