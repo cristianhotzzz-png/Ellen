@@ -1,0 +1,9 @@
+{
+  "name": "ellen-cristina-gestao",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sistema de gestão da Ellen Cristina Nail Designer",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
