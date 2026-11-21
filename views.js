@@ -520,12 +520,6 @@ async function config() {
     <button class="btn primary block" type="submit">${icon('check')} Salvar configurações</button>
   </form>
 
-  <form data-form="password" class="form card" novalidate>
-    <h2>Trocar senha</h2>
-    <label class="field">Nova senha (mínimo 8 caracteres)<input id="pw-new" type="password" autocomplete="new-password" minlength="8"></label>
-    <div id="pw-error" class="notice err" role="alert" hidden></div>
-    <button class="btn soft block" type="submit">${icon('lock')} Trocar senha</button>
-  </form>
 
   <section class="card">
     <h2>Instalar no celular</h2>
@@ -534,11 +528,10 @@ async function config() {
   </section>
   <section class="card">
     <h2>Seus dados</h2>
-    <p>Os dados ficam no banco privado da sua conta (Supabase). Só quem faz login acessa. Os telefones e anotações das clientes são tratados conforme a LGPD: registre a autorização de lembretes no cadastro de cada cliente e atenda pedidos de exclusão pelo botão “Excluir cliente”.</p>
+    <p>Os dados ficam no banco privado da sua conta (Supabase). Os telefones e anotações das clientes são tratados conforme a LGPD: registre a autorização de lembretes no cadastro de cada cliente e atenda pedidos de exclusão pelo botão “Excluir cliente”.</p>
     <button class="btn ghost block" data-action="export">${icon('download')} Baixar cópia dos dados (backup)</button>
   </section>
-  <button class="btn danger-ghost block" data-action="logout">${icon('logout')} Sair da conta</button>
-  <p class="version">${esc(S.session && S.session.user ? S.session.user.email : '')}</p>`;
+  `;
 }
 
 export async function saveSettings() {
@@ -569,23 +562,6 @@ export async function saveSettings() {
   }
 }
 
-export async function savePassword() {
-  const err = (m) => {
-    const b = document.getElementById('pw-error');
-    b.textContent = m;
-    b.hidden = !m;
-  };
-  err('');
-  const p = document.getElementById('pw-new').value;
-  if (p.length < 8) return err('A senha precisa ter pelo menos 8 caracteres.');
-  try {
-    await API.updatePassword(p);
-    document.getElementById('pw-new').value = '';
-    toast('Senha alterada ✓');
-  } catch (e) {
-    err(e.message);
-  }
-}
 
 export async function exportData() {
   try {

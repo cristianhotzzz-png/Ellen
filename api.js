@@ -46,6 +46,20 @@ export async function getSession() {
   const { data } = await sb.auth.getSession();
   return data && data.session ? data.session : null;
 }
+/** Entrada automática: pede ao servidor uma sessão pronta (sem tela de login). */
+export async function autoLogin() {
+  let r;
+  try {
+    r = await fetch('/session', { cache: 'no-store' });
+  } catch (e) {
+    throw new AppError('Sem conexão com a internet. Tente de novo.');
+  }
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new AppError(j.error || 'Não foi possível entrar no sistema.');
+  const { data, error } = await sb.auth.setSession({ access_token: j.access_token, refresh_token: j.refresh_token });
+  if (error || !data.session) throw new AppError('Não foi possível iniciar a sessão.');
+  return data.session;
+}
 export async function signIn(email, password) {
   let res;
   try {

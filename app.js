@@ -1,4 +1,4 @@
-// Ponto de entrada: login, menu, rotas e eventos.
+// Ponto de entrada: entrada automática, menu, rotas e eventos.
 import * as API from './api.js';
 import * as U from './util.js';
 import { esc } from './util.js';
@@ -41,20 +41,6 @@ async function go(fresh = true) {
 function showFatal(title, html) {
   boot.hidden = true;
   app.innerHTML = `<main class="login"><img src="logo.jpg" alt="Ellen Cristina Nail Designer" width="140" height="140"><h1>${esc(title)}</h1>${html}</main>`;
-}
-
-function showLogin(message = '') {
-  boot.hidden = true;
-  app.innerHTML = `<main class="login">
-    <img src="logo.jpg" alt="Ellen Cristina Nail Designer" width="150" height="150">
-    <h1>Ellen Cristina</h1><p class="sub-brand">Nail Designer · Gestão</p>
-    <form data-form="login" class="form" novalidate>
-      <label class="field">E-mail<input id="lg-email" type="email" autocomplete="username" inputmode="email" autocapitalize="none" required></label>
-      <label class="field">Senha<input id="lg-pass" type="password" autocomplete="current-password" required></label>
-      <div id="lg-error" class="notice err" role="alert" ${message ? '' : 'hidden'}>${esc(message)}</div>
-      <button class="btn primary block" type="submit">Entrar</button>
-    </form>
-    <p class="hint">Acesso privado. ${icon('cross')}</p></main>`;
 }
 
 function shell() {
@@ -167,11 +153,6 @@ document.addEventListener('click', async (ev) => {
     case 'reload': go(true); break;
     case 'reload-page': location.reload(); break;
     case 'export': V.exportData(); break;
-    case 'logout':
-      try { await API.signOut(); } catch (_) {}
-      S.session = null;
-      showLogin();
-      break;
     default: break;
   }
 });
@@ -185,25 +166,6 @@ document.addEventListener('submit', async (ev) => {
     case 'client': await Fm.saveClientForm(); break;
     case 'service': await Fm.saveServiceForm(); break;
     case 'settings': await V.saveSettings(); break;
-    case 'password': await V.savePassword(); break;
-    case 'login': {
-      const err = byId('lg-error');
-      const btn = f.querySelector('button[type=submit]');
-      const email = byId('lg-email').value.trim();
-      const pass = byId('lg-pass').value;
-      if (!email || !pass) { err.textContent = 'Informe e-mail e senha.'; err.hidden = false; return; }
-      btn.disabled = true;
-      err.hidden = true;
-      try {
-        const session = await API.signIn(email, pass);
-        await enter(session);
-      } catch (e) {
-        err.textContent = e.message;
-        err.hidden = false;
-        btn.disabled = false;
-      }
-      break;
-    }
     default: break;
   }
 });
@@ -243,19 +205,26 @@ async function start() {
     return showFatal('Falta configurar', '<p>O endereço do banco de dados ainda não foi informado no servidor.</p><p class="hint">Veja no guia: variáveis <b>SUPABASE_URL</b> e <b>SUPABASE_ANON_KEY</b> no Render.</p>');
   }
   if (!window.supabase) {
-    return showFatal('Sem conexão', '<p>Não consegui carregar o sistema de login. Verifique a internet.</p><button class="btn primary" data-action="reload-page">Tentar de novo</button>');
+    return showFatal('Sem conexão', '<p>Não consegui carregar o sistema. Verifique a internet.</p><button class="btn primary" data-action="reload-page">Tentar de novo</button>');
   }
   S.cfg = cfg;
   API.init(cfg);
-  API.onAuth((event, session) => {
+  API.onAuth((event) => {
     if (event === 'SIGNED_OUT' && S.session) {
       S.session = null;
-      showLogin('Sua sessão terminou. Entre novamente.');
+      boot.hidden = false;
+      API.autoLogin().then(enter).catch((e) => showFatal('Não foi possível entrar', `<div class="notice err">${esc(e.message)}</div><button class="btn primary" data-action="reload-page">Tentar de novo</button>`));
     }
   });
   let session = null;
   try { session = await API.getSession(); } catch (_) {}
-  if (session) await enter(session);
-  else showLogin();
+  if (!session) {
+    try {
+      session = await API.autoLogin();
+    } catch (e) {
+      return showFatal('Não foi possível entrar', `<div class="notice err">${esc(e.message)}</div><button class="btn primary" data-action="reload-page">Tentar de novo</button>`);
+    }
+  }
+  await enter(session);
 }
 start();

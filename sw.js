@@ -1,5 +1,5 @@
 // Service worker: o app abre mesmo com internet fraca, mas SEMPRE busca dados novos quando há conexão.
-const VERSION = 'ec-v1';
+const VERSION = 'ec-v2';
 const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'core.js', 'api.js', 'actions.js', 'forms.js', 'views.js', 'util.js', 'content.js', 'logo.jpg', 'favicon.png', 'manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {
@@ -13,6 +13,7 @@ self.addEventListener('fetch', (e) => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.hostname.endsWith('supabase.co')) return; // dados e login nunca passam pelo cache
+  if (url.pathname === '/session' || url.pathname === '/config.js') return; // nunca vai para o cache
   const sameOrigin = url.origin === self.location.origin;
   if (sameOrigin) {
     // rede primeiro; se estiver sem internet, usa a cópia guardada

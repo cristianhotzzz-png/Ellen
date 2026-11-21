@@ -33,6 +33,34 @@ function configJs() {
   return `window.__APP_CONFIG__=${JSON.stringify(cfg).replace(/</g, '\\u003c')};`;
 }
 
+// Entrada automática (sem tela de login): o servidor entra no Supabase com o e-mail e a senha
+// guardados nas variáveis APP_EMAIL e APP_PASSWORD (só no Render, nunca no código) e entrega
+// ao navegador apenas os tokens da sessão. As regras (RLS) do banco continuam valendo.
+const hits = [];
+async function autoSession() {
+  const base = (process.env.SUPABASE_URL || '').replace(/\/+$/, '');
+  const key = process.env.SUPABASE_ANON_KEY || '';
+  const email = process.env.APP_EMAIL || '';
+  const password = process.env.APP_PASSWORD || '';
+  if (!base || !key || !email || !password) return { status: 500, body: { error: 'Faltam as variáveis APP_EMAIL e APP_PASSWORD no servidor.' } };
+  const now = Date.now();
+  while (hits.length && now - hits[0] > 60000) hits.shift();
+  if (hits.length >= 20) return { status: 429, body: { error: 'Muitas tentativas. Aguarde um minuto.' } };
+  hits.push(now);
+  try {
+    const r = await fetch(base + '/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { apikey: key, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.access_token) return { status: 502, body: { error: 'O Supabase recusou o e-mail/senha configurados no servidor.' } };
+    return { status: 200, body: { access_token: j.access_token, refresh_token: j.refresh_token } };
+  } catch (e) {
+    return { status: 502, body: { error: 'Não consegui falar com o Supabase.' } };
+  }
+}
+
 function send(req, res, status, body, type, cache) {
   const headers = {
     'Content-Type': type, 'Cache-Control': cache,
@@ -56,6 +84,9 @@ http.createServer((req, res) => {
   let p;
   try { p = decodeURIComponent(new URL(req.url, 'http://x').pathname); } catch { p = '/'; }
   if (p === '/healthz') return send(req, res, 200, Buffer.from('ok'), 'text/plain', 'no-store');
+  if (p === '/session') {
+    return autoSession().then((r) => send(req, res, r.status, Buffer.from(JSON.stringify(r.body)), 'application/json', 'no-store'));
+  }
   if (p === '/config.js') return send(req, res, 200, Buffer.from(configJs()), TYPES['.js'], 'no-store');
   let name = p.replace(/^\/+/, '') || 'index.html';
   if (!ALLOW.has(name)) name = ALLOW.has(name) ? name : (path.extname(name) ? null : 'index.html');
