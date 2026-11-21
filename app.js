@@ -205,6 +205,25 @@ async function start() {
     return showFatal('Falta configurar', '<p>O endereço do banco de dados ainda não foi informado no servidor.</p><p class="hint">Veja no guia: variáveis <b>SUPABASE_URL</b> e <b>SUPABASE_ANON_KEY</b> no Render.</p>');
   }
   if (!window.supabase) {
+    // o CDN principal falhou: tenta os reservas, um por vez
+    const loadScript = (src) => new Promise((ok) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = () => ok(true);
+      s.onerror = () => { s.remove(); ok(false); };
+      document.head.appendChild(s);
+    });
+    const BACKUPS = [
+      'https://unpkg.com/@supabase/supabase-js@2.45.4/dist/umd/supabase.js',
+      'https://cdnjs.cloudflare.com/ajax/libs/supabase-js/2.45.4/umd/supabase.min.js',
+      'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js',
+    ];
+    for (const src of BACKUPS) {
+      if (window.supabase) break;
+      await loadScript(src);
+    }
+  }
+  if (!window.supabase) {
     return showFatal('Sem conexão', '<p>Não consegui carregar o sistema. Verifique a internet.</p><button class="btn primary" data-action="reload-page">Tentar de novo</button>');
   }
   S.cfg = cfg;

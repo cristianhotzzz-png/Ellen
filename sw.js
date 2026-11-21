@@ -1,5 +1,5 @@
 // Service worker: o app abre mesmo com internet fraca, mas SEMPRE busca dados novos quando há conexão.
-const VERSION = 'ec-v2';
+const VERSION = 'ec-v3';
 const SHELL = ['./', 'index.html', 'app.css', 'app.js', 'core.js', 'api.js', 'actions.js', 'forms.js', 'views.js', 'util.js', 'content.js', 'logo.jpg', 'favicon.png', 'manifest.webmanifest'];
 
 self.addEventListener('install', (e) => {

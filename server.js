@@ -20,7 +20,7 @@ const ALLOW = new Set([
 ]);
 const CSP = [
   "default-src 'self'",
-  "script-src 'self' https://cdn.jsdelivr.net",
+  "script-src 'self' https://cdn.jsdelivr.net https://unpkg.com https://cdnjs.cloudflare.com",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src https://fonts.gstatic.com",
   "img-src 'self' data:",
